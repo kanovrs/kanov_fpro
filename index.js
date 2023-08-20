@@ -1,4 +1,4 @@
-let action = prompt ("Оберіть дію (add, sub, mult, div)" )
+let action = prompt ("Оберіть дію (add, sub, mult, div)");
 let result;
 let num1 = +prompt("вкажіть перше число");
 let num2 = +prompt("вкажіть друге число");
