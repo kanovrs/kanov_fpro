@@ -30,7 +30,7 @@ if(!city) {
             break;
     }
 } else {
-    countryOrCity = "Шкода, що Ви не захотіли ввести свое мiсто!"
+    countryOrCity = "Шкода, що Ви не захотіли ввести свое мiсто!";
 }
 
 let favoriteSport = prompt("Вкажіть Ваш улюбленный вид спорту");
@@ -55,7 +55,7 @@ if(!favoriteSport){
 
 alert (`${yearsOld} 
 ${countryOrCity}
-${champion}`)
+${champion}`);
 
 
 
