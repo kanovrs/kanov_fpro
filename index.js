@@ -1,4 +1,9 @@
-let name = prompt(`What is your name?`);
+let numOne = +prompt(`Enter the first number`);
+let numTwo = +prompt(`Enter the second number`);
 
-alert(`Hello, ${name}! How are you?`);
+
+alert(`${numOne} + ${numTwo} = ${numOne + numTwo}
+${numOne} - ${numTwo} = ${numOne - numTwo}
+${numOne} * ${numTwo} = ${numOne * numTwo}
+${numOne} / ${numTwo} = ${numOne / numTwo}`);
 
