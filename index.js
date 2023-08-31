@@ -1,50 +1,85 @@
-const arr = [16,-37,54,-4,72,-56,47,4, -16,25,-37,46,4,-51,27,-63,4,-54,76,-4,12,-35,4,47];
+let users = [
+  {
+  "index": 0,
+  "isActive": true,
+  "balance": "$2,226.60",
+  "name": "Eugenia Sawyer",
+  "gender": "female",
+  "phone": "+1 (840) 583-3207",
+  "address": "949 John Street, Rose, Puerto Rico, 1857"
+  },
+  {
+  "index": 1,
+  "isActive": true,
+  "balance": "$2,613.77",
+  "name": "Pauline Gallegos",
+  "gender": "female",
+  "phone": "+1 (985) 593-3328",
+  "address": "328 Greenpoint Avenue, Torboy, North Dakota, 6857"
+  },
+  {
+  "index": 2,
+  "isActive": false,
+  "balance": "$3,976.41",
+  "name": "Middleton Chaney",
+  "gender": "male",
+  "phone": "+1 (995) 591-2478",
+  "address": "807 Fleet Walk, Brutus, Arkansas, 9783"
+  },
+  {
+  "index": 3,
+  "isActive": true,
+  "balance": "$1,934.58",
+  "name": "Burns Poole",
+  "gender": "male",
+  "phone": "+1 (885) 559-3422",
+  "address": "730 Seba Avenue, Osage, Alabama, 6290"
+  },
+  {
+  "index": 4,
+  "isActive": true,
+  "balance": "$3,261.65",
+  "name": "Mcfadden Horne",
+  "gender": "male",
+  "phone": "+1 (942) 565-3988",
+  "address": "120 Scholes Street, Kirk, Michigan, 1018"
+  },
+  {
+  "index": 5,
+  "isActive": false,
+  "balance": "$1,790.56",
+  "name": "Suzette Lewis",
+  "gender": "female",
+  "phone": "+1 (837) 586-3283",
+  "address": "314 Dunne Place, Bawcomville, Guam, 9053"
+  }
+  ]
+
+  // Вивести масив телефонних номерів користувачів, у яких баланс більше 2000 доларів
+  const usersOver2000 = [];
+
+  users.forEach((item) => {
+    let tmp = +item["balance"].replace(/[^0-9.]/g, '');
+    if (tmp > 2000) {
+      usersOver2000.push(item['phone']);
+    }
+    return usersOver2000;
+  })
+  console.log (`Телефонні номера користувачів, у яких баланс більше 2000 доларів ${usersOver2000}`);
+ 
+
+  // І знайти суму всіх балансів користувачів
+ let sumBalance = 0;
+
+ users.forEach((item) => {
+  let tmp = +item["balance"].replace(/[^0-9.]/g, '');
+  sumBalance += tmp * 100;
+
+  return sumBalance;
+})
+
+console.log (`Сума всіх балансів користувачів ${sumBalance / 100} $`)
 
 
-// Знайти суму та кількість позитивних елементів.
 
-  console.log(`Кількість позитивних елементів = ${arr.filter(el => el > 0).length}
-  Cума позитивних елементів = ${arr.filter(el => el > 0).reduce((el,acc) => el + acc ,0)}`);
-
-//Знайти мінімальний елемент масиву та його порядковий номер
-
-console.log(`Мінімальний елемент масиву = ${arr.reduce((min, current) => {
-  return current < min ? current : min;}, arr[0])}
-  Порядковий номер мінімального елементу масиву = ${arr.indexOf(Math.min(...arr))}`);
-
-// Знайти максимальний елемент масиву та його порядковий номер.
-
-console.log(`Максимальний елемент масиву = ${arr.reduce((max, current) => {
-  return current > max ? current : max;}, arr[0])}
-  Порядковий номер Максимального елементу масиву = ${arr.indexOf(Math.max(...arr))}`);
-
-// Визначити кількість негативних елементів.
-
-console.log(`Кількість негативних елементів = ${arr.filter(el => el < 0).length}`);
-
-// Знайти кількість непарних позитивних елементів.
-
-console.log(`Кількість непарних позитивних елементів = ${arr.filter(el => el > 0).filter(el => el % 2).length}`);
-
-// Знайти кількість парних позитивних елементів.
-
-console.log(`Кількість парних позитивних елементів = ${arr.filter(el => el > 0 && el % 2 === 0).length}`);
-
-// Знайти суму парних позитивних елементів.
-
-console.log(`Cума парних позитивних елементів = ${arr.filter(el => el > 0 && el % 2 === 0).reduce ((acc, el) => acc += el)}`);
-
-// Знайти суму непарних позитивних елементів.
-
-console.log(`Cума парних позитивних елементів = ${arr.filter(el => el > 0 && el % 2 !== 0).reduce ((acc, el) => acc += el)}`);
-
-// Знайти добуток позитивних елементів.
-
-console.log(`Cума парних позитивних елементів = ${arr.filter(el => el > 0).reduce ((acc, el) => acc *= el)}`);
-
-// Знайти найбільший серед елементів масиву, остальні обнулити.
-
-console.log(`Найбільший елемент серед елементів масиву = ${arr.map((item, index) => {
-  return item !== Math.max(...arr) ? arr[index] = 0 : arr[index] = item })}`);
-
-
+    
