@@ -1,8 +1,15 @@
-function removeElement(array, item) {
-  const index = array.indexOf(item);
-  return (index !== -1) ? array.splice(index, 1) : null;
+function generateKey(length, characters) {
+  let key = '';
+  let charactersLength = characters.length;
+
+  for (let i = 0; i < length; i++) {
+    let index = Math.floor(Math.random() * charactersLength);
+    key += characters[index];
+  }
+  return key;
 }
 
-const array = [1, 2, 3, 4, 5, 6, 7];
-removeElement(array, 5);
-console.log(array);
+const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+const key = generateKey(16, characters);
+console.log(key); // eg599gb60q926j8i
