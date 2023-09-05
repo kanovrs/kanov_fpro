@@ -1,14 +1,16 @@
-function recursiveExponentiation(num, degree) {
-  if (degree == 0) {
-    return 1;
-  } else {
-    if (degree == 1) {
-    return num;
-    }
-    else {
-      return num * recursiveExponentiation(num, degree - 1);
-    }
-  } 
+function sumVariable () {
+  let totalAmount = 0;
+
+  function sum(number) {
+    totalAmount += number;
+    return totalAmount;
+  }
+
+  return sum;
 }
 
-console.log(recursiveExponentiation(3, 3));
+const closureFunc = sumVariable ();
+
+console.log(closureFunc(3));
+console.log(closureFunc(5));
+console.log(closureFunc(20));
