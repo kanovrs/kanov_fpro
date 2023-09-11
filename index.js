@@ -1,17 +1,14 @@
-let ladder = {
-  step: 0,
-  up: function () {
-      this.step++;
-      return this;
-  },
-  down: function () {
-      this.step--;
-      return this;
-  },
-  showStep: function () { // показывает текущую ступеньку
-      alert(this.step);
-      return this;
-  }
-};
+let input = document.querySelector('#input');
+let elementGhost = document.createElement('div');
 
-ladder.up().up().down().showStep(); // 1
+elementGhost.style.border = 'thick double #32a1ce';
+elementGhost.style.padding = '20px';
+elementGhost.textContent = 'Div-ghost';
+
+input.addEventListener('focus', function() {
+    document.body.append(elementGhost); 
+});
+
+input.addEventListener('blur', function () {
+    elementGhost.remove();
+});
