@@ -1,7 +1,64 @@
 body {
-    display: flex;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
 }
-#input {
-    width: 50%;
-    padding: 20px;
+
+li {
+  text-decoration: none;
+}
+
+.categories,
+.products,
+.product-info {
+  width: 30%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 10px;
+  background-color: #f8f8f8;
+}
+
+.products,
+.product-info {
+  display: none;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+li:hover {
+  background-color: #007bff;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: aqua;
+  color: black;
+}
+
+a {
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  padding: 10px;
+  border: 1px #007bff solid;
+}
+
+a:hover {
+  color: #f8f8f8;
 }
