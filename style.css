@@ -1,23 +1,44 @@
-.slider-container {
+body {
   display: flex;
-  padding: 10px;
   justify-content: center;
+  font-family: "Montserrat", "Arial", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-#image {
-  display: block;
-  width: 10%;
-  overflow: hidden;
-  width: 500px;
-  height: auto;
+#form-reg {
+  width: 300px;
+  height: 500px;
+  background-color: rgba(42, 42, 42, 0.475);
+  border-radius: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 15px;
 }
 
-#prevBtn,
-#nextBtn {
-  margin: 0 10px;
+#table-date {
+  display: none;
+  border-collapse: collapse;
+  border: 3px solid purple;
+}
+thead th:nth-child(1) {
+  width: 30%;
 }
 
-#nextBtn[disabled],
-#prevBtn[disabled] {
-  visibility: hidden;
+thead th:nth-child(2) {
+  width: 20%;
+}
+
+thead th:nth-child(3) {
+  width: 15%;
+}
+
+thead th:nth-child(4) {
+  width: 35%;
+}
+
+th,
+td {
+  padding: 20px;
 }

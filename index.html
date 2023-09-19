@@ -7,11 +7,47 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="slider-container">
-      <button id="prevBtn">Prev</button>
-      <img id="image" src="./images/2.jpg" alt="Image 2" />
-      <button id="nextBtn">Next</button>
-    </div>
+    <form id="form-reg">
+      <span>Registration</span>
+      <label for="name">User Name</label>
+      <input type="text" name="name" id="name" required />
+      <label for="surname">User Surname</label>
+      <input type="text" name="surname" id="surname" required />
+      <label for="date-of-birth">Date of birth</label>
+      <input type="text" name="dateOfBirth" id="dateOfBirth" />
+      <span>Your Gender</span>
+      <label for="gender-man"
+        >Man
+        <input type="radio" name="gender" value="Man" id="gender-man" />
+      </label>
+      <label for="gender-woman"
+        >Woman
+        <input type="radio" name="gender" value="Woman" id="gender-woman" />
+      </label>
+      <span>Your City</span>
+      <select name="city" id="city">
+        <option value="Kyiv">Kyiv</option>
+        <option value="Lviv">Lviv</option>
+        <option value="Kharkiv">Kharkiv</option>
+      </select>
+      <label for="address">Your Adress</label>
+      <textarea name="address" id="address" cols="30" rows="2"></textarea>
+      <span>Your Lang</span>
+      <label for="lang-eng"
+        >English
+        <input type="checkbox" id="lang-eng" name="lang" value="English" />
+      </label>
+      <label for="lang-ukr"
+        >Ukrainian
+        <input type="checkbox" id="lang-ukr" name="lang" value="Ukrainian" />
+      </label>
+      <label for="lang-other"
+        >Other
+        <input type="checkbox" id="lang-other" name="lang" value="Other" />
+      </label>
+      <input type="submit" value="Save" />
+    </form>
+    <div id="table-date"></div>
+    <script src="./index.js"></script>
   </body>
-  <script src="./index.js"></script>
 </html>
