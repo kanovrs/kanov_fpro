@@ -1,5 +1,5 @@
-let numberOfHour = +prompt(`Вкажіть кількість годин`);
+let userText1 = prompt(``);
+let userText2 = prompt(``);
+let userText3 = prompt(``);
 
-let numberOfSrcond = numberOfHour * 3600;
-
-alert(`У ${numberOfHour} годинах ${numberOfSrcond} секунд`)
+alert(`${userText1} ${userText2} ${userText3}`);
