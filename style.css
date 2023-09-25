@@ -62,3 +62,23 @@ a {
 a:hover {
   color: #f8f8f8;
 }
+
+.my-orders {
+  display: none;
+}
+
+.my-orders-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.orders-list {
+  display: none;
+}
+
+.go-category-btn {
+  display: none;
+  top: 20px;
+  left: 20px;
+}
