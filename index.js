@@ -6,7 +6,8 @@ const productInfo = document.querySelector('#product-info');
 const buyButton = document.querySelector('#buy-button');
 const myOrdersButton = document.querySelector('#my-orders-button');
 const ordersList = document.querySelector('#orders-list');
-const goCategoryBtn = document.querySelector('#go-category-btn')
+const goCategoryBtn = document.querySelector('#go-category-btn');
+const orderDetails = document.querySelector('#order-details');
 
 
 const products = {
@@ -52,6 +53,7 @@ function displayOrders() {
     const userOrders = getSavedOrders();
     userOrders.forEach((order, index) => {
         const listItem = document.createElement('li');
+        listItem.classList.add('info-order')
         const orderDate = new Date(order.timestamp).toLocaleString();
         listItem.innerHTML = `
             <span>${order.productName}</span>
@@ -63,11 +65,25 @@ function displayOrders() {
             if (e.target.classList.contains('delete-order')) {
                 const index = e.target.getAttribute('data-index');
                 deleteOrder(index);
+                orderDetails.style.display = 'none';
+            } else {
+                    showOrderDetails(order);
+                    orderDetails.style.display = 'block';
             }
         });
         ordersList.appendChild(listItem);
     });
 }
+
+function showOrderDetails(order) {
+    orderDetails.innerHTML = `
+        <h2>Деталі замовлення</h2>
+        <p>Назва товару: ${order.productName}</p>
+        <p>Ціна: ${order.totalPrice} грн</p>
+        <p>Дата та час замовлення: ${new Date(order.timestamp).toLocaleString()}</p>
+    `;
+}
+
 
 function deleteOrder(index) {
     const userOrders = getSavedOrders();
@@ -148,6 +164,8 @@ goCategoryBtn.addEventListener('click', () => {
     categoryList.style.display = 'block';
     ordersList.style.display = 'none';
     goCategoryBtn.style.display = 'none';
-})
+    orderDetails.style.display = 'none';
+
+});
 
 createCategoryList();

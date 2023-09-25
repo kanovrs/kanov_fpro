@@ -75,10 +75,21 @@ a:hover {
 
 .orders-list {
   display: none;
+  cursor: pointer;
 }
 
 .go-category-btn {
   display: none;
   top: 20px;
   left: 20px;
+}
+
+.info-order {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.info-order:hover {
+  background-color: #ccc;
 }
