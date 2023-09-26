@@ -1,16 +1,22 @@
-document.addEventListener("DOMContentLoaded", function () {
-    let tableBody = document.querySelector("#multTable");
+function generateList(array) {
     
-    for (let i = 1; i <= 10; i++) {
-        let row = document.createElement("tr");
-        
-        for (let j = 1; j <= 10; j++) {
-            let cell = document.createElement("td");
-            let result = i * j;
-            cell.textContent = result;
-            row.appendChild(cell);
+let ul = document.createElement('ul');
+
+    for (let i = 0; i < array.length; i++) {
+        let li = document.createElement('li');
+
+        if (Array.isArray(array[i])) {
+            let subList = generateList(array[i]);
+            li.appendChild(subList);
+        } else {
+            li.textContent = array[i];
         }
-        
-        tableBody.appendChild(row);
+        ul.appendChild(li);
     }
-});
+    return ul;
+}
+
+let array = [1, 3, 5, 4, [3, 2,], 8, [6, 7]];
+let list = generateList(array);
+
+document.body.appendChild(list);
