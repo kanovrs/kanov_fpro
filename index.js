@@ -1,22 +1,78 @@
-function generateList(array) {
-    
-let ul = document.createElement('ul');
+// Вивести числа від 20 до 30 через пропуск, використовуючи крок 0,5 (20 20,5 21 21,5….).
+let num = [];
 
-    for (let i = 0; i < array.length; i++) {
-        let li = document.createElement('li');
-
-        if (Array.isArray(array[i])) {
-            let subList = generateList(array[i]);
-            li.appendChild(subList);
-        } else {
-            li.textContent = array[i];
-        }
-        ul.appendChild(li);
-    }
-    return ul;
+for (let i = 20; i <= 30; i += 0.5) {
+    num.push(i);
 }
 
-let array = [1, 3, 5, 4, [3, 2,], 8, [6, 7]];
-let list = generateList(array);
+let result = num.join(' ');
 
-document.body.appendChild(list);
+console.log(`числа від 20 до 30 крок 0,5.: ${result}`);
+
+
+// Один долар коштує 27 гривень. Вивести дані з розрахунком вартості 10, 20, 30... 100 доларів.
+
+for (let i = 10; i <= 100; i += 10) {
+    let sum = i * 27
+    console.log(`${i} долларів при ціні 27 гривень за доллар
+    = ${sum}`)
+}
+
+// Дане ціле число. Вивести всі цілі числа від 1 до 100, квадрат яких не перевищує числа N.
+let n = 67;
+
+for (let i = 1; i <= 100; i++){
+    let square = i * i;
+    if (square < n) {
+        console.log(`Квадрат числа ${i} = ${square} та не перевищує число ${n} `)
+    }
+}
+
+//Дане ціле число. З'ясувати, чи є воно простим (простим називається число, більше 1, які не мають інших дільників крім 1 і себе).
+
+let numb = prompt('Введіть ціле число для перевірки чи є воно простим'); 
+let isPrime = true;
+
+if (numb <= 1) {
+  isPrime = false;
+} else {
+  for (let i = 2; i < numb; i++) {
+    if (numb % i === 0) {
+      isPrime = false; 
+      break;
+    }
+  }
+}
+
+if (isPrime) {
+  console.log(`Число ${numb} є простим.`);
+} else {
+  console.log(`Число ${numb} не є простим.`);
+}
+
+// Дане деяке число. Визначити, чи можна одержати це число шляхом зведення числа 3 у деякий ступінь. 
+//(Наприклад, числа 9, 81 можна отримати, а 13 - не можна).
+
+function mixing(numeric) {
+  let result = 1;
+
+  while (result < numeric) {
+    result *= 3;
+  }
+
+  return result === numeric;
+}
+
+let numeric = prompt('Введіть ціле число для перевірки чи можна отримати його зведенням 3 у деякий ступінь'); 
+
+if (mixing(parseInt(numeric))) {
+  console.log(`Число ${numeric} можна отримати зведенням 3 у деякий ступінь.`);
+} else {
+  console.log(`Число ${numeric} не можна отримати зведенням 3 у деякий ступінь.`);
+}
+
+
+
+
+
+
