@@ -1,49 +1,48 @@
 class Person {
-    constructor(name, gender) {
+    constructor(name, age) {
         this.name = name;
-        this.gender = gender;
+        this.age = age;
+    }
+
+    getInfo() {
+        console.log(`Ім'я:${this.name} Вік:${this.age}`)
     }
 }
 
-class Apartment {
-    constructor() {
-        this.residents = [];
+class Car {
+    constructor(brand, model, year, number) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.number = number;
     }
 
-    addResident(person) {
-        this.residents.push(person);
-    }
-}
-
-class House {
-    constructor(maxApartments) {
-        this.apartments = [];
-        this.maxApartments = maxApartments;
-    }
-
-    addApartment(apartment) {
-        if (this.apartments.length < this.maxApartments) {
-            this.apartments.push(apartment);
+    setOwner(owner) {
+        if (owner.age < 18) {
+            this.owner = owner;
         } else {
-            console.log("Максимальна кількість квартир у будинку вже досягнута.");
+            console.log("Власник автомобіля повинен бути старше 18 років.");
         }
     }
+
+    printCarInfo() {
+        console.log(`Марка: ${this.brand}, Модель: ${this.model}, Рік: ${this.year}, Номерний знак: ${this.number}`);
+        if (this.owner) {
+            console.log("Інформація про власника:");
+            this.owner.getInfo();
+        }
+    }
+
 }
 
-const person1 = new Person("Lucy", "woman");
-const person2 = new Person("Jon", "man");
-const person3 = new Person("Mike", "woman");
+const person1 = new Person("Ann", 32);
+const person2 = new Person("Jon", 16);
 
-const apartmentNomber1 = new Apartment();
-const apartmentNomber2 = new Apartment();
-const apartmentNomber3 = new Apartment();
+const car1 = new Car("Toyota", "Camry", 2022, "AD777RE");
+const car2 = new Car("Mercedes", "clk-320", 2021, "KA044KA");
 
-apartmentNomber1.addResident(person1);
-apartmentNomber2.addResident(person2);
-apartmentNomber3.addResident(person3);
+car1.setOwner(person1); 
+car2.setOwner(person2);
 
-const house = new House(3); 
-
-house.addApartment(apartmentNomber1);
-house.addApartment(apartmentNomber2);
-house.addApartment(apartmentNomber3); 
+car1.printCarInfo(); 
+car2.printCarInfo();
