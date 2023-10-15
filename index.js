@@ -8,7 +8,10 @@ const myOrdersButton = document.querySelector('#my-orders-button');
 const ordersList = document.querySelector('#orders-list');
 const goCategoryBtn = document.querySelector('#go-category-btn');
 const orderDetails = document.querySelector('#order-details');
-
+const myOrders = document.querySelector('#my-orders');
+const checkout = document.querySelector('#checkout');
+const orderForm = document.querySelector('#order-form');
+const submitOrderButton = document.querySelector('#submit-order');
 
 const products = {
     'Телефони': [
@@ -158,6 +161,7 @@ myOrdersButton.addEventListener('click', () => {
     productList.style.display = 'none';
     productInfo.style.display = 'none';
     goCategoryBtn.style.display = 'block';
+    checkout.style.display = 'block';
     displayOrders();
 });
 goCategoryBtn.addEventListener('click', () => {
@@ -165,7 +169,45 @@ goCategoryBtn.addEventListener('click', () => {
     ordersList.style.display = 'none';
     goCategoryBtn.style.display = 'none';
     orderDetails.style.display = 'none';
+    checkout.style.display = 'none';
+    orderForm.style.display = 'none';
 
 });
+
+checkout.addEventListener('click', () => {
+    orderForm.style.display = 'block';
+})
+
+submitOrderButton.addEventListener('click', () => {
+  const name = document.querySelector('#name').value;
+  const city = document.querySelector('#city').value;
+  const novaPoshta = document.querySelector('#nova-poshta').value;
+  const payment = document.querySelector('input[name="payment"]:checked');
+  const quantity = document.querySelector('#quantity').value;
+  const comment = document.querySelector('#comment').value;
+
+  if (name && city && novaPoshta && payment && quantity) {
+
+    orderForm.style.display = 'none';
+
+    displayOrderInfo(name, city, novaPoshta, payment.value, quantity, comment);
+  } else {
+    alert('Будь ласка, заповніть усі обовязкові поля');
+  }
+});
+
+function displayOrderInfo(name, city, novaPoshta, payment, quantity, comment) {
+  orderDetails.innerHTML = `
+    <h2>Інофрмація про замовлення</h2>
+    <p>ПІБ покупця: ${name}</p>
+    <p>Місто: ${city}</p>
+    <p>Відділення НП: ${novaPoshta}</p>
+    <p>Спосіб оплати: ${payment}</p>
+    <p>Кількість: ${quantity}</p>
+    <p>Коментар: ${comment}</p>
+  `;
+  orderDetails.style.display = 'block';
+}
+
 
 createCategoryList();
