@@ -1,213 +1,122 @@
-const categoryList = document.querySelector('#category-list')
-const categoryItems = document.querySelector('#category-items');
-const productList = document.querySelector('#product-list');
-const productItems = document.querySelector('#products-items');
-const productInfo = document.querySelector('#product-info');
-const buyButton = document.querySelector('#buy-button');
-const myOrdersButton = document.querySelector('#my-orders-button');
-const ordersList = document.querySelector('#orders-list');
-const goCategoryBtn = document.querySelector('#go-category-btn');
-const orderDetails = document.querySelector('#order-details');
-const myOrders = document.querySelector('#my-orders');
-const checkout = document.querySelector('#checkout');
-const orderForm = document.querySelector('#order-form');
-const submitOrderButton = document.querySelector('#submit-order');
+class Hamburger {
+  constructor(size, stuffing) {
+    this.size = size;
+    this.stuffing = stuffing;
+    this.toppings = [];
+  }
+  
+  addTopping(topping) {
+    this.toppings.push(topping);
+  }
 
-const products = {
-    'Телефони': [
-        {
-        name: 'Apple', description: `Экран (6.1", OLED (Super Retina XDR), 2532x1170) /
-         Apple A15 Bionic / двойная основная камера: 12 Мп + 12 Мп,
-         фронтальная камера: 12 Мп / 128 ГБ встроенной памяти`, price: `13000 грн` },
-        {
-            name: 'Samsung', description: `Экран (6.8", Dynamic AMOLED 2X, 3088x1440) /
-         Qualcomm Snapdragon 8 Gen 2 for Galaxy (3.36 ГГц + 2.8 ГГц + 2.8 ГГц + 2.0 ГГц) /
-          основная квадро-камера: 200 Мп + 12 Мп + 10 Мп + 10 Мп`, price: `14000 грн` },
-        {
-            name: 'Xiaomi', description: `Экран (6.67", AMOLED, 2400x1080) /
-         Qualcomm Snapdragon 732G (2.3 ГГц + 1.8 ГГц) /
-         основная квадро-камера: 108 Мп + 8 Мп + 2 Мп + 2 Мп, фронтальная 16 Мп / RAM 8 ГБ`, price: `9000 грн` },
-    ],
-    'Ноутбуки': [
-        { name: 'Ноутбук Acer Aspire 5', description: 'Экран 15.6" IPS (1920x1080) Full HD, матовый / Intel Core i5-1135G7', price: `23000 грн` },
-        { name: 'Ноутбук Lenovo IdeaPad Slim 3 15AMN8', description: 'Экран 15.6" IPS (1920x1080) Full HD, матовый / AMD Ryzen 5 7520U', price: `25000 грн` },
-        { name: 'Ноутбук ASUS TUF Gaming F15 ', description: 'кран 15.6" IPS (1920x1080) Full HD 144 Гц, матовый / Intel Core i5-11400H', price: `28000 грн` },
-    ],
-    'Телевизоры': [
-        { name: 'Телевизор LG', description: 'Диагональ экрана 48"', price: `43000 грн` },
-        { name: 'Телевизор Philips', description: 'Диагональ экрана 48"', price: `45000 грн` },
-        { name: 'Телевизор Samsung', description: 'Диагональ экрана 65"', price: `54000 грн` },
-    ],
+  // Коллораж
+  calculateCalories() {
+    let calories = 0;
+
+    switch (this.size) {
+      case Hamburger.SIZE_SMALL:
+        calories += Hamburger.SIZES[Hamburger.SIZE_SMALL].calories;
+        break;
+      case Hamburger.SIZE_LARGE:
+        calories += Hamburger.SIZES[Hamburger.SIZE_LARGE].calories;
+        break;
+      default:
+        break;
+    }
+
+    switch (this.stuffing) {
+      case Hamburger.STUFFING_CHEESE:
+        calories += Hamburger.STUFFINGS[Hamburger.STUFFING_CHEESE].calories;
+        break;
+      case Hamburger.STUFFING_SALAD:
+        calories += Hamburger.STUFFINGS[Hamburger.STUFFING_SALAD].calories;
+        break;
+      case Hamburger.STUFFING_POTATO:
+        calories += Hamburger.STUFFINGS[Hamburger.STUFFING_POTATO].calories;
+        break;
+      default:
+        break;
+    }
+
+    this.toppings.forEach((topping) => {
+      calories += Hamburger.TOPPINGS[topping].calories;
+    });
+
+    return calories;
+  }
+
+  // Расчёт стоимости
+  calculatePrice() {
+    let price = 0;
+
+    switch (this.size) {
+      case Hamburger.SIZE_SMALL:
+        price += Hamburger.SIZES[Hamburger.SIZE_SMALL].price;
+        break;
+      case Hamburger.SIZE_LARGE:
+        price += Hamburger.SIZES[Hamburger.SIZE_LARGE].price;
+        break;
+      default:
+        break;
+    }
+
+    switch (this.stuffing) {
+      case Hamburger.STUFFING_CHEESE:
+        price += Hamburger.STUFFINGS[Hamburger.STUFFING_CHEESE].price;
+        break;
+      case Hamburger.STUFFING_SALAD:
+        price += Hamburger.STUFFINGS[Hamburger.STUFFING_SALAD].price;
+        break;
+      case Hamburger.STUFFING_POTATO:
+        price += Hamburger.STUFFINGS[Hamburger.STUFFING_POTATO].price;
+        break;
+      default:
+        break;
+    }
+
+    this.toppings.forEach((topping) => {
+      price += Hamburger.TOPPINGS[topping].price;
+    });
+
+    return price;
+  }
+}
+
+// Размеры
+Hamburger.SIZE_SMALL = 'SIZE_SMALL';
+Hamburger.SIZE_LARGE = 'SIZE_LARGE';
+
+Hamburger.SIZES = {
+  [Hamburger.SIZE_SMALL]: { price: 50, calories: 20 },
+  [Hamburger.SIZE_LARGE]: { price: 100, calories: 40 },
 };
 
-function getSavedOrders() {
-    const savedOrders = localStorage.getItem('userOrders');
-    return savedOrders ? JSON.parse(savedOrders) : [];
-}
+// Начинки
+Hamburger.STUFFING_CHEESE = 'STUFFING_CHEESE';
+Hamburger.STUFFING_SALAD = 'STUFFING_SALAD';
+Hamburger.STUFFING_POTATO = 'STUFFING_POTATO';
 
-function saveOrder(order) {
-    const userOrders = getSavedOrders();
-    userOrders.push(order);
-    localStorage.setItem('userOrders', JSON.stringify(userOrders));
-}
+Hamburger.STUFFINGS = {
+  [Hamburger.STUFFING_CHEESE]: { price: 10, calories: 20 },
+  [Hamburger.STUFFING_SALAD]: { price: 20, calories: 5 },
+  [Hamburger.STUFFING_POTATO]: { price: 15, calories: 10 },
+};
 
-function displayOrders() {
-    ordersList.innerHTML = '';
-    const userOrders = getSavedOrders();
-    userOrders.forEach((order, index) => {
-        const listItem = document.createElement('li');
-        listItem.classList.add('info-order')
-        const orderDate = new Date(order.timestamp).toLocaleString();
-        listItem.innerHTML = `
-            <span>${order.productName}</span>
-            <span>${orderDate}</span>
-            <span>${order.totalPrice}</span>
-            <button class="delete-order" data-index="${index}">Видалити</button>
-        `;
-        listItem.addEventListener('click', (e) => {
-            if (e.target.classList.contains('delete-order')) {
-                const index = e.target.getAttribute('data-index');
-                deleteOrder(index);
-                orderDetails.style.display = 'none';
-            } else {
-                    showOrderDetails(order);
-                    orderDetails.style.display = 'block';
-            }
-        });
-        ordersList.appendChild(listItem);
-    });
-}
+// Добавки
+Hamburger.TOPPING_MAYO = 'TOPPING_MAYO';
+Hamburger.TOPPING_SAUCE = 'TOPPING_SAUCE';
 
-function showOrderDetails(order) {
-    orderDetails.innerHTML = `
-        <h2>Деталі замовлення</h2>
-        <p>Назва товару: ${order.productName}</p>
-        <p>Ціна: ${order.totalPrice} грн</p>
-        <p>Дата та час замовлення: ${new Date(order.timestamp).toLocaleString()}</p>
-    `;
-}
+Hamburger.TOPPINGS = {
+  [Hamburger.TOPPING_MAYO]: { price: 20, calories: 5 },
+  [Hamburger.TOPPING_SAUCE]: { price: 15, calories: 0 },
+};
 
+let hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE);
 
-function deleteOrder(index) {
-    const userOrders = getSavedOrders();
-    userOrders.splice(index, 1);
-    localStorage.setItem('userOrders', JSON.stringify(userOrders));
-    displayOrders();
-}
+hamburger.addTopping(Hamburger.TOPPING_MAYO);
+console.log('Calories: ' + hamburger.calculateCalories());
+console.log('Price: ' + hamburger.calculatePrice());
 
-function addOrder(order) {
-    saveOrder(order);
-    displayOrders();
-}
+hamburger.addTopping(Hamburger.TOPPING_SAUCE);
+console.log('Price with sauce: ' + hamburger.calculatePrice());
 
-function createCategoryList() {
-    Object.keys(products).forEach(category => {
-        const listItem = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = '#';
-        link.textContent = category;
-        link.addEventListener('click', () => showCategory(category));
-        categoryItems.append(listItem);
-        listItem.append(link);
-    });
-}
-
-function showCategory(category) {
-    productItems.innerHTML = '';
-    products[category].forEach((product, index) => {
-        const listItem = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = '#';
-        link.textContent = product.name;
-        link.addEventListener('click', () => showProductInfo(category, index));
-        listItem.append(link);
-        productItems.append(listItem);
-        productInfo.style.display = 'none';
-    });
-    productInfo.innerHTML = '';
-    productList.style.display = 'block';
-}
-
-function showProductInfo(category, index) {
-    const product = products[category][index];
-    productInfo.innerHTML = `
-        <h2>Інформація про товар</h2>
-        <h3>${product.name}</h3>
-        <p>${product.description}</p>
-        <p>${product.price}</p>
-        <button id="buy-button">Купити</button>
-    `;
-    const buyButton = document.querySelector('#buy-button');
-    buyButton.style.display = 'block';
-    buyButton.addEventListener('click', () => buyProduct(product.name, category));
-    productInfo.style.display = 'block';
-}
-
-function buyProduct(productName, category) {
-    const order = {
-        timestamp: Date.now(),
-        totalPrice: products[category].find((product) => product.name === productName).price,
-        productName: productName,
-    };
-    addOrder(order);
-    alert(`Товар "${productName}" куплений`);
-    productInfo.style.display = 'none';
-    productList.style.display = 'none';
-}
-
-myOrdersButton.addEventListener('click', () => {
-    ordersList.style.display = 'block';
-    categoryList.style.display = 'none';
-    productList.style.display = 'none';
-    productInfo.style.display = 'none';
-    goCategoryBtn.style.display = 'block';
-    checkout.style.display = 'block';
-    displayOrders();
-});
-goCategoryBtn.addEventListener('click', () => {
-    categoryList.style.display = 'block';
-    ordersList.style.display = 'none';
-    goCategoryBtn.style.display = 'none';
-    orderDetails.style.display = 'none';
-    checkout.style.display = 'none';
-    orderForm.style.display = 'none';
-
-});
-
-checkout.addEventListener('click', () => {
-    orderForm.style.display = 'block';
-})
-
-submitOrderButton.addEventListener('click', () => {
-  const name = document.querySelector('#name').value;
-  const city = document.querySelector('#city').value;
-  const novaPoshta = document.querySelector('#nova-poshta').value;
-  const payment = document.querySelector('input[name="payment"]:checked');
-  const quantity = document.querySelector('#quantity').value;
-  const comment = document.querySelector('#comment').value;
-
-  if (name && city && novaPoshta && payment && quantity) {
-
-    orderForm.style.display = 'none';
-
-    displayOrderInfo(name, city, novaPoshta, payment.value, quantity, comment);
-  } else {
-    alert('Будь ласка, заповніть усі обовязкові поля');
-  }
-});
-
-function displayOrderInfo(name, city, novaPoshta, payment, quantity, comment) {
-  orderDetails.innerHTML = `
-    <h2>Інофрмація про замовлення</h2>
-    <p>ПІБ покупця: ${name}</p>
-    <p>Місто: ${city}</p>
-    <p>Відділення НП: ${novaPoshta}</p>
-    <p>Спосіб оплати: ${payment}</p>
-    <p>Кількість: ${quantity}</p>
-    <p>Коментар: ${comment}</p>
-  `;
-  orderDetails.style.display = 'block';
-}
-
-
-createCategoryList();
