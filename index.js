@@ -1,122 +1,72 @@
-class Hamburger {
-  constructor(size, stuffing) {
-    this.size = size;
-    this.stuffing = stuffing;
-    this.toppings = [];
-  }
-  
-  addTopping(topping) {
-    this.toppings.push(topping);
-  }
-
-  // Коллораж
-  calculateCalories() {
-    let calories = 0;
-
-    switch (this.size) {
-      case Hamburger.SIZE_SMALL:
-        calories += Hamburger.SIZES[Hamburger.SIZE_SMALL].calories;
-        break;
-      case Hamburger.SIZE_LARGE:
-        calories += Hamburger.SIZES[Hamburger.SIZE_LARGE].calories;
-        break;
-      default:
-        break;
-    }
-
-    switch (this.stuffing) {
-      case Hamburger.STUFFING_CHEESE:
-        calories += Hamburger.STUFFINGS[Hamburger.STUFFING_CHEESE].calories;
-        break;
-      case Hamburger.STUFFING_SALAD:
-        calories += Hamburger.STUFFINGS[Hamburger.STUFFING_SALAD].calories;
-        break;
-      case Hamburger.STUFFING_POTATO:
-        calories += Hamburger.STUFFINGS[Hamburger.STUFFING_POTATO].calories;
-        break;
-      default:
-        break;
-    }
-
-    this.toppings.forEach((topping) => {
-      calories += Hamburger.TOPPINGS[topping].calories;
-    });
-
-    return calories;
-  }
-
-  // Расчёт стоимости
-  calculatePrice() {
-    let price = 0;
-
-    switch (this.size) {
-      case Hamburger.SIZE_SMALL:
-        price += Hamburger.SIZES[Hamburger.SIZE_SMALL].price;
-        break;
-      case Hamburger.SIZE_LARGE:
-        price += Hamburger.SIZES[Hamburger.SIZE_LARGE].price;
-        break;
-      default:
-        break;
-    }
-
-    switch (this.stuffing) {
-      case Hamburger.STUFFING_CHEESE:
-        price += Hamburger.STUFFINGS[Hamburger.STUFFING_CHEESE].price;
-        break;
-      case Hamburger.STUFFING_SALAD:
-        price += Hamburger.STUFFINGS[Hamburger.STUFFING_SALAD].price;
-        break;
-      case Hamburger.STUFFING_POTATO:
-        price += Hamburger.STUFFINGS[Hamburger.STUFFING_POTATO].price;
-        break;
-      default:
-        break;
-    }
-
-    this.toppings.forEach((topping) => {
-      price += Hamburger.TOPPINGS[topping].price;
-    });
-
-    return price;
-  }
+function fetchPostById(id) {
+    return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Помилка при отриманні поста');
+            }
+            return response.json();
+        });
 }
 
-// Размеры
-Hamburger.SIZE_SMALL = 'SIZE_SMALL';
-Hamburger.SIZE_LARGE = 'SIZE_LARGE';
+function fetchCommentsByPostId(id) {
+    return fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Помилка при отриманні коментарів');
+            }
+            return response.json();
+        });
+}
 
-Hamburger.SIZES = {
-  [Hamburger.SIZE_SMALL]: { price: 50, calories: 20 },
-  [Hamburger.SIZE_LARGE]: { price: 100, calories: 40 },
-};
+function searchPost() {
+    const postIdInput = document.getElementById('postIdInput');
+    const postDetails = document.getElementById('postDetails');
+    const commentsButton = document.getElementById('commentsButton');
+    const postId = parseInt(postIdInput.value);
 
-// Начинки
-Hamburger.STUFFING_CHEESE = 'STUFFING_CHEESE';
-Hamburger.STUFFING_SALAD = 'STUFFING_SALAD';
-Hamburger.STUFFING_POTATO = 'STUFFING_POTATO';
+    if (isNaN(postId) || postId < 1 || postId > 100) {
+        alert('Введіть коректний ід поста (1-100)');
+        return;
+    }
 
-Hamburger.STUFFINGS = {
-  [Hamburger.STUFFING_CHEESE]: { price: 10, calories: 20 },
-  [Hamburger.STUFFING_SALAD]: { price: 20, calories: 5 },
-  [Hamburger.STUFFING_POTATO]: { price: 15, calories: 10 },
-};
+    fetchPostById(postId)
+        .then(post => {
+            postDetails.innerHTML = `
+            <h3>${post.title}</h3>
+            <p>${post.body}</p>
+            `;
+            commentsButton.style.display = 'block';
+        })
+        .catch(error => {
+            alert(error.message);
+        });
+}
 
-// Добавки
-Hamburger.TOPPING_MAYO = 'TOPPING_MAYO';
-Hamburger.TOPPING_SAUCE = 'TOPPING_SAUCE';
+function fetchComments() {
+    const postIdInput = document.getElementById('postIdInput');
+    const commentsButton = document.getElementById('commentsButton');
 
-Hamburger.TOPPINGS = {
-  [Hamburger.TOPPING_MAYO]: { price: 20, calories: 5 },
-  [Hamburger.TOPPING_SAUCE]: { price: 15, calories: 0 },
-};
+    const postId = parseInt(postIdInput.value);
 
-let hamburger = new Hamburger(Hamburger.SIZE_SMALL, Hamburger.STUFFING_CHEESE);
+    fetchCommentsByPostId(postId)
+        .then(comments => {
+            const commentsList = comments.map(comment => `
+            <div>
+            <strong>${comment.name}</strong>
+            <p>${comment.body}</p>
+            </div>
+            `).join('');
 
-hamburger.addTopping(Hamburger.TOPPING_MAYO);
-console.log('Calories: ' + hamburger.calculateCalories());
-console.log('Price: ' + hamburger.calculatePrice());
+            const commentsContainer = document.createElement('div');
 
-hamburger.addTopping(Hamburger.TOPPING_SAUCE);
-console.log('Price with sauce: ' + hamburger.calculatePrice());
+            commentsContainer.innerHTML = commentsList;
+            
+            document.body.appendChild(commentsContainer);
 
+            commentsButton.style.display = 'none';
+        })
+        .catch(error => {
+            alert(error.message);
+
+        });
+}
