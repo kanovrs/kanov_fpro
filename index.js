@@ -1,72 +1,36 @@
-function fetchPostById(id) {
-    return fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Помилка при отриманні поста');
-            }
-            return response.json();
-        });
-}
+const apiKey = '0cfbe8511567c9bdd1c52fe7c460d4ba';
+const weatherBlock = document.querySelector('#weatherBlock');
+       
+function getWeather() {
+            const cityInput = document.getElementById('cityInput').value;
+            const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=metric&APPID=${apiKey}&lang=ua`;
+            weatherBlock.style.display = 'flex';
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const cityName = data.name;
+            const temperature = data.main.temp;
+            const pressure = data.main.pressure;
+            const description = data.weather[0].description;
+            const humidity = data.main.humidity;
+            const windSpeed = data.wind.speed;
+            const windDirection = data.wind.deg;
+            const iconId = data.weather[0].icon;
+            const weatherIcon = `http://openweathermap.org/img/w/${iconId}.png`;
 
-function fetchCommentsByPostId(id) {
-    return fetch(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Помилка при отриманні коментарів');
-            }
-            return response.json();
-        });
-}
-
-function searchPost() {
-    const postIdInput = document.getElementById('postIdInput');
-    const postDetails = document.getElementById('postDetails');
-    const commentsButton = document.getElementById('commentsButton');
-    const postId = parseInt(postIdInput.value);
-
-    if (isNaN(postId) || postId < 1 || postId > 100) {
-        alert('Введіть коректний ід поста (1-100)');
-        return;
-    }
-
-    fetchPostById(postId)
-        .then(post => {
-            postDetails.innerHTML = `
-            <h3>${post.title}</h3>
-            <p>${post.body}</p>
-            `;
-            commentsButton.style.display = 'block';
-        })
+            document.getElementById('cityName').textContent = `Місто: ${cityName}`;
+            document.getElementById('temperature').textContent = `Температура: ${temperature}°C`;
+            document.getElementById('pressure').textContent = `Тиск: ${pressure} hPa`;
+            document.getElementById('description').textContent = `Опис: ${description}`;
+            document.getElementById('humidity').textContent = `Вологість: ${humidity}%`;
+            document.getElementById('wind').textContent = `Швидкість вітру: ${windSpeed} m/s`;
+            document.getElementById('windDirection').textContent = `Напрям вітру: ${windDirection}°`;
+            document.getElementById('weatherIcon').src = weatherIcon;
+                })
         .catch(error => {
-            alert(error.message);
-        });
-}
-
-function fetchComments() {
-    const postIdInput = document.getElementById('postIdInput');
-    const commentsButton = document.getElementById('commentsButton');
-
-    const postId = parseInt(postIdInput.value);
-
-    fetchCommentsByPostId(postId)
-        .then(comments => {
-            const commentsList = comments.map(comment => `
-            <div>
-            <strong>${comment.name}</strong>
-            <p>${comment.body}</p>
-            </div>
-            `).join('');
-
-            const commentsContainer = document.createElement('div');
-
-            commentsContainer.innerHTML = commentsList;
+            console.error('Помилка запиту:', error);
+            weatherBlock.style.display = 'none';
             
-            document.body.appendChild(commentsContainer);
-
-            commentsButton.style.display = 'none';
-        })
-        .catch(error => {
-            alert(error.message);
-
-        });
-}
+            alert('Не вдалося знайти погодові дані для цього міста.');
+                });
+        }
