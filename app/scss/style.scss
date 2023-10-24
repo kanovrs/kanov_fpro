@@ -1,0 +1,15 @@
+.weather {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__block {
+    display: none;
+    align-items: center;
+  }
+  &__icon {
+    width: 200px;
+  }
+}
+.weather {
+  color: aqua;
+}
