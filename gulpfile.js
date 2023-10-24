@@ -22,10 +22,10 @@ function convertJS() {
 }
 
 function watching() {
-    watch(['app/js/index.js'], convertJS);
+    watch(['app/js/index.js'], convertJS)
     watch(['app/scss/style.scss'], convertScss)
     watch(['app/index.html'],)
-        .on('change', browserSync.reload);
+    .on('change', browserSync.reload);
 }
 
 function browserAutoUpdate() {
